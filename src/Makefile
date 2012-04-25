@@ -1,22 +1,22 @@
 DEFINES = -g
 LIBS = $(shell sdl-config --libs)
 CXXFLAGS = $(shell sdl-config --cflags)
-CXX = gcc
+CC = gcc
 INC =
 LD = gcc
 LDFLAGS = $(LIBS)
-SRC = $(*.c)
+SRC = pukis_pc.c
 OBJ = $(SRC:.c=.o)
-EXE = pukis_pc
+EXE = pukiscontrol
 
 
-All: $(EXE)
+All: $(SRC) $(EXE)
 
-atoll: $(SRC) $EXE
-	$(CXX) $(CXXFLAGS) -o $@ $(LDFLAGS) $(OBJ)
+$(EXE): $(OBJ)
+	$(CC) -o $@ $(OBJ) $(LDFLAGS) 
 
-%.o:%.cpp
-	$(CXX) -c $< $(CXXFLAGS)
+.c.o:
+	$(CC) -c $< $(CXXFLAGS) -o $@
 
 
 clean:
