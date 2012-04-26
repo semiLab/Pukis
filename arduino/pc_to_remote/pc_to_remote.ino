@@ -1,5 +1,11 @@
-
+#include <Wire.h>
 #define TXPIN 0
+
+#define CMD_NONE 0
+#define CMD_FWD 1
+#define CMD_REV 2
+#define CMD_LEFT 3
+#define CMD_RIGHT 4
 
 void setup(){
   Wire.begin();
@@ -7,8 +13,18 @@ void setup(){
   pinMode(TXPIN, OUTPUT);
 }
 
+byte incoming;
+byte lastCommand = CMD_NONE;
+byte vals[5] = {0,0,0,0,0};
 void loop(){
-  if(Serial.available > 0){
+  if(Serial.available() > 0){
+    incoming = Serial.read();
+    if(lastCommand != 0){
+      vals[lastCommand] = incoming;
+      lastCommand = 0;
+    }else{
+      lastCommand = incoming;
+    }
   }
 }
 

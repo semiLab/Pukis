@@ -1,6 +1,6 @@
 DEFINES = -g
 LIBS = $(shell sdl-config --libs)
-CXXFLAGS = $(shell sdl-config --cflags)
+CXXFLAGS = $(shell sdl-config --cflags) --std=c99
 CC = gcc
 INC =
 LD = gcc
