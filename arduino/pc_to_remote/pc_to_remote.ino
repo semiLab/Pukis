@@ -1,31 +1,46 @@
 #include <Wire.h>
 #define TXPIN 0
 
-#define CMD_NONE 0
-#define CMD_FWD 1
-#define CMD_REV 2
-#define CMD_LEFT 3
-#define CMD_RIGHT 4
 
 void setup(){
   Wire.begin();
   Serial.begin(9600);
   pinMode(TXPIN, OUTPUT);
+  pinMode(13,OUTPUT);
 }
-
+byte x, y;
 byte incoming;
-byte lastCommand = CMD_NONE;
-byte vals[5] = {0,0,0,0,0};
+byte commandSent = 0;
+byte foo = 0;
+
 void loop(){
   if(Serial.available() > 0){
     incoming = Serial.read();
-    if(lastCommand != 0){
-      vals[lastCommand] = incoming;
-      lastCommand = 0;
+    if(commandSent != 0){
+      if(commandSent == 'x'){
+        x = incoming;  
+      }
+      else if(commandSent == 'y'){
+        y = incoming;
+      }
+      commandSent = 0;
     }else{
-      lastCommand = incoming;
+      switch(incoming){
+        case 'x':
+          commandSent = 'x';
+        break;
+        case 'y':
+          commandSent = 'y';
+        break;
+      } 
     }
   }
+  //analogWrite(13, y);
+  digitalWrite(13,HIGH);
+  delay(y+128);
+  digitalWrite(13,LOW);
+  delay(y+128);
+//  sendCmd(10);
 }
 
 /*
@@ -49,9 +64,6 @@ void sendCmd(int cmd){
   w1(cmd);
   w2(4);
   w1(cmd);
-  w2(4);
-  
-  w1(4);
   w2(4);
 }
 
