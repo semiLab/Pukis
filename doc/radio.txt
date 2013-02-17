@@ -1,0 +1,48 @@
+Units: NRF24L01+
+
+http://arduino-info.wikispaces.com/Nrf24L01-2.4GHz-HowTo
+
+
+firkant = GND, 1
+
+set fra chipsiden: ved siden af GND er 2, Vcc (3v3),
+
+over GND er 3, ved siden af 4 osv.
+
+1: GND,
+2: Vcc,
+3: CE,
+4: CSN,
+5: SCK,
+6: MOSI,
+7: MISO,
+8: IRQ
+
+SPI:
+MISO-> 12,
+MOSI-> 11,
+SCK-> 13
+
+
+RF24:
+CE->9,
+CSN->10
+
+Throttle: reversed, 0-255
+
+fwd: 0-120
+brake: 120-130
+rev: 130-255
+
+lights:
+
+white in front - ok
+need 4 x yellow for blinkers
+2 x red for rear - ok...maybe smd is nicer
+    2 x white for backing?
+
+
+diodes:
+2x red 20mA @ 1.8V
+4x orange 20mA @ 2.05V
+2x white 10mA @ 3.5V
